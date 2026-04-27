@@ -1,0 +1,32 @@
+using UnityEngine;
+
+namespace SpaceFeedback
+{
+    /// <summary>
+    /// API Key 配置文件
+    /// 复制此文件为 ApiKeyConfig.cs，并填入你的 API Key
+    /// </summary>
+    [CreateAssetMenu(fileName = "ApiKeyConfig", menuName = "SpaceFeedback/ApiKeyConfig")]
+    public class ApiKeyConfig : ScriptableObject
+    {
+        [Header("LLM API")]
+        [Tooltip("LLM 空间决策的 API Key")]
+        public string llmApiKey = "";
+
+        [Tooltip("API 端点")]
+        public string llmApiEndpoint = "https://open.biggi.cn/v1/chat/completions";
+
+        [Tooltip("模型名称")]
+        public string llmModelName = "glm-4-flash";
+
+        [Header("Chatbot API")]
+        [Tooltip("鼓励对话机器人的 API Key")]
+        public string chatbotApiKey = "";
+
+        [Tooltip("Chatbot API 端点")]
+        public string chatbotApiUrl = "https://open.bigmodel.cn/api/paas/v4/chat/completions";
+
+        [Tooltip("Chatbot 使用的模型")]
+        public string chatbotModel = "glm-4-flash";
+    }
+}

@@ -1,0 +1,106 @@
+# ============================================
+# Unity 项目 .gitignore - 精简安全版
+# ============================================
+
+# ----------------------------------------
+# 1. 构建产物 (必须忽略)
+# ----------------------------------------
+[Aa]pps/
+[Aa]pplication*
+Build/
+*.exe
+*.dll
+
+# ----------------------------------------
+# 2. Unity 生成文件 (必须忽略)
+# ----------------------------------------
+[Ll]ibrary/
+[Tt]emp/
+[Oo]bj/
+
+# Unity 2020.3+ 本地包
+/Packages/
+
+# 保留包管理器文件
+!/Packages/manifest.json
+!/Packages/packages-lock.json
+
+# ----------------------------------------
+# 3. IDE 和编辑器文件
+# ----------------------------------------
+# Visual Studio
+[Ee]nv/
+[Vv]isualStudio*Settings/
+*.user
+*.userosscache
+*.suo
+*.sln.docstates
+.vs/
+
+# VS Code
+.vscode/
+!.vscode/settings.json
+!.vscode/tasks.json
+
+# Rider
+.idea/
+*.rsuser
+
+# Unity Editor 备份
+*.orig
+
+# ----------------------------------------
+# 4. 操作系统文件
+# ----------------------------------------
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+# ----------------------------------------
+# 5. 日志和运行时文件
+# ----------------------------------------
+[Ll]ogs/
+*.log
+
+# 记忆文件 (如果存储在项目目录)
+memory*.json
+memory*.txt
+
+# ----------------------------------------
+# 6. 第三方和自定义包
+# ----------------------------------------
+# CustomPackages/
+
+# ============================================
+# 提交以下文件
+# ============================================
+
+# 核心项目配置
+/ProjectSettings/
+!/ProjectSettings/ProjectVersion.txt
+
+# 核心脚本 (不包括 .example 文件)
+Assets/Scripts/*.cs
+!.Assets/Scripts/ApiKeyConfig.cs.example
+
+# 场景和预制体 (团队共享)
+# 注意：如果场景中的 API Key 是通过外部引用的 ScriptableObject
+# 请在 .gitignore 中排除 ApiKeyConfig.asset
+Assets/Maps/
+Assets/Prefabs/
+Assets/Scenes/
+
+# 如果场景不需要团队共享，可改为：
+# Assets/Maps/
+# Assets/Scenes/
+
+# 资源和配置
+Assets/Textures/
+Assets/Materials/
+Assets/Models/
+Assets/Audio/
+Assets/Shaders/
+Assets/Animations/
+
+# 配置文件夹 (用于 ScriptableObject)
+Assets/Configs/
