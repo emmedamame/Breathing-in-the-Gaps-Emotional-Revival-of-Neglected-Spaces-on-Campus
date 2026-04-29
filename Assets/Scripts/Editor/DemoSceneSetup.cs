@@ -1,8 +1,10 @@
 using UnityEngine;
 using UnityEditor;
+using SpaceFeedback;
 
 /// <summary>
 /// 一键初始化 Demo 场景
+/// 已适配 ExperienceManager 架构
 /// </summary>
 public class DemoSceneSetup
 {
@@ -24,25 +26,61 @@ public class DemoSceneSetup
         PlayerStateTracker tracker = controllerObj.GetComponent<PlayerStateTracker>();
         if (tracker == null)
             tracker = controllerObj.AddComponent<PlayerStateTracker>();
-        SpaceResponseController response = controllerObj.GetComponent<SpaceResponseController>();
-        if (response == null)
-            response = controllerObj.AddComponent<SpaceResponseController>();
+        ExperienceManager experienceManager = controllerObj.GetComponent<ExperienceManager>();
+        if (experienceManager == null)
+            experienceManager = controllerObj.AddComponent<ExperienceManager>();
         DemoMemoryLogger logger = controllerObj.GetComponent<DemoMemoryLogger>();
         if (logger == null)
             logger = controllerObj.AddComponent<DemoMemoryLogger>();
 
-        // 2. 创建三个触发区
+        // 关联 ExperienceManager
+        controller.experienceManager = experienceManager;
+
+        // 2. 创建灯光控制器
+        GameObject lightingObj = GameObject.Find("LightingController");
+        if (lightingObj == null)
+        {
+            lightingObj = new GameObject("LightingController");
+            Debug.Log("已创建 LightingController");
+        }
+        LightingController lighting = lightingObj.GetComponent<LightingController>();
+        if (lighting == null)
+            lighting = lightingObj.AddComponent<LightingController>();
+
+        // 3. 创建后处理控制器
+        GameObject postObj = GameObject.Find("PostProcessing");
+        if (postObj == null)
+        {
+            postObj = new GameObject("PostProcessing");
+            Debug.Log("已创建 PostProcessing");
+        }
+        PostProcessingController postProcessing = postObj.GetComponent<PostProcessingController>();
+        if (postProcessing == null)
+            postProcessing = postObj.AddComponent<PostProcessingController>();
+
+        // 4. 创建音频控制器
+        GameObject audioObj = GameObject.Find("AudioController");
+        if (audioObj == null)
+        {
+            audioObj = new GameObject("AudioController");
+            Debug.Log("已创建 AudioController");
+        }
+        AudioController audio = audioObj.GetComponent<AudioController>();
+        if (audio == null)
+            audio = audioObj.AddComponent<AudioController>();
+
+        // 5. 创建三个触发区
         CreateZone("Zone_WallTrace", new Vector3(-5f, 1f, 0f), new Vector3(2f, 2f, 2f), Color.yellow, controller, 0);
         CreateZone("Zone_DoorNote", new Vector3(0f, 1f, 3f), new Vector3(2f, 2f, 2f), Color.cyan, controller, 1);
         CreateZone("Zone_LightView", new Vector3(5f, 2f, -3f), new Vector3(3f, 3f, 3f), Color.magenta, controller, 2);
 
-        // 3. 设置相机引用
+        // 6. 设置相机引用
         if (tracker.xrCamera == null)
             tracker.xrCamera = Camera.main;
         if (tracker.playerRoot == null)
             tracker.playerRoot = controllerObj.transform;
 
-        // 4. 创建主灯光
+        // 7. 创建主灯光并关联
         Light mainLight = GameObject.FindObjectOfType<Light>();
         if (mainLight == null)
         {
@@ -51,21 +89,21 @@ public class DemoSceneSetup
             mainLight.type = LightType.Directional;
             mainLight.transform.rotation = Quaternion.Euler(50f, -30f, 0f);
         }
-        response.mainLight = mainLight;
+        lighting.mainLight = mainLight;
 
-        // 5. 创建环境音 AudioSource
-        if (response.ambientSource == null)
+        // 8. 创建环境音 AudioSource
+        if (audio.ambientSource == null)
         {
-            AudioSource ambient = controllerObj.AddComponent<AudioSource>();
+            AudioSource ambient = audioObj.AddComponent<AudioSource>();
             ambient.loop = true;
             ambient.playOnAwake = true;
             ambient.volume = 0.5f;
-            response.ambientSource = ambient;
+            audio.ambientSource = ambient;
         }
-        if (response.uiAudioSource == null)
+        if (audio.uiSource == null)
         {
-            AudioSource uiAudio = controllerObj.AddComponent<AudioSource>();
-            response.uiAudioSource = uiAudio;
+            AudioSource uiAudio = audioObj.AddComponent<AudioSource>();
+            audio.uiSource = uiAudio;
         }
 
         Selection.activeGameObject = controllerObj;
@@ -100,7 +138,7 @@ public class DemoSceneSetup
             ZoneTrigger trigger = zoneObj.AddComponent<ZoneTrigger>();
             trigger.zoneName = name;
             trigger.gizmoColor = color;
-            trigger.stayDuration = 4f;
+            trigger.stayDuration = 1f;
 
             // 关联到控制器
             switch (index)

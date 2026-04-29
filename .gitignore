@@ -80,8 +80,8 @@ memory*.txt
 !/ProjectSettings/ProjectVersion.txt
 
 # 核心脚本 (不包括 .example 文件)
-Assets/Scripts/*.cs
-!.Assets/Scripts/ApiKeyConfig.cs.example
+# Assets/Scripts/*.cs  # 注释：允许跟踪所有脚本
+!/Assets/Scripts/ApiKeyConfig.cs.example
 
 # 场景和预制体 (团队共享)
 # 注意：如果场景中的 API Key 是通过外部引用的 ScriptableObject
