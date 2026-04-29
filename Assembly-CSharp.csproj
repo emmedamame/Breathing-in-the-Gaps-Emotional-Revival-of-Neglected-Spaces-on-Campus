@@ -67,7 +67,6 @@
     <Compile Include="Assets\Scripts\PlayerStateTracker.cs" />
     <Compile Include="Assets\Scripts\AprilTagCubeRotator.cs" />
     <Compile Include="Assets\Scripts\ExperienceManager.cs" />
-    <Compile Include="Assets\Scripts\SpaceResponseController.cs" />
     <Compile Include="Assets\Scripts\ZoneTrigger.cs" />
     <Compile Include="Assets\TutorialInfo\Scripts\Readme.cs" />
     <Compile Include="Assets\Scripts\DemoMemoryLogger.cs" />
@@ -82,7 +81,6 @@
     <Compile Include="Assets\Scripts\GazeTracker.cs" />
     <Compile Include="Assets\Scripts\DespawnOnHandTouch.cs" />
     <Compile Include="Assets\Scripts\ExperienceState.cs" />
-    <Compile Include="Assets\Scripts\EnhancedSpaceResponse.cs" />
     <Compile Include="Assets\Scripts\AprilTagManager.cs" />
     <Compile Include="Assets\Scripts\PostProcessingController.cs" />
     <Compile Include="Assets\Scripts\XRLocomotionSetup.cs" />
