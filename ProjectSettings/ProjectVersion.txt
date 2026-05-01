@@ -1,0 +1,3 @@
+m_EditorVersion: 1.8.5
+m_EditorVersionWithRevision: 1.8.5
+m_TuanjieEditorVersion: 1.8.5
